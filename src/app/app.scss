@@ -1,35 +1,11 @@
 :host {
-  display: flex;
-}
-
-.container {
   display: block;
   width: 100%;
 }
 
-.banner {
-}
-
-video {
-  max-width: 100%;
-  width: 100%;
-}
-
-.title-container {
-  position: absolute;
-  bottom: 20vh;
-}
-
-.title {
-  font-size: 10rem;
-  color: #c4c4c4;
-  position: sticky;
-  letter-spacing: -11px;
-  margin: 0 0 1rem 2rem;
-}
-
-.scrolled-section {
-  background-color: black;
-  position: absolute;
-  width: 100%;
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
