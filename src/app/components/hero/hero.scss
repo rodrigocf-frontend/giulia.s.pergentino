@@ -1,19 +1,133 @@
+:host {
+  --tan: #b2835f;
+  --cream: #f5f5f2;
+  --black: #0a0a0a;
+}
+
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
-  background-color: black;
+  aspect-ratio: 1909 / 932;
+  overflow: hidden;
+  background: #000;
 }
 
-.title-container {
+.hero-photo {
   position: absolute;
-  bottom: 10vh;
-  left: 2rem;
+  inset: 0;
+  background: url('/image.jpg');
+  background-size: cover;
+  background-position: center 20%;
 }
 
-.title {
-  font-size: 8rem;
-  color: #c4c4c4;
-  letter-spacing: -5px;
-  margin: 0;
+.black-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 30%;
+  background: var(--black);
+  z-index: 2;
+}
+
+.bottom-scrim {
+  position: absolute;
+  left: 30%;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  background: linear-gradient(180deg, rgba(6, 6, 6, 0) 0%, rgba(6, 6, 6, 0.6) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.nav {
+  position: absolute;
+  top: 3.6%;
+  right: 6%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-label {
+  color: var(--cream);
+  font-weight: 500;
+  font-size: clamp(9px, 0.75vw, 13px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headline-bottom {
+  position: absolute;
+  left: 2.2%;
+  bottom: 11%;
+  z-index: 4;
+  color: var(--cream);
+  font-weight: 700;
+  font-size: clamp(11px, 1.15vw, 21px);
+  line-height: 1.32;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  max-width: 26%;
+}
+.headline-bottom span {
+  display: block;
+}
+
+.arrow {
+  position: absolute;
+  left: 2.6%;
+  bottom: 2%;
+  z-index: 4;
+  width: 14px;
+  height: 34px;
+}
+.arrow svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.wordmark {
+  position: absolute;
+  top: 4%;
+  left: 2.2%;
+  z-index: 4;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  max-width: 62%;
+  color: var(--tan);
+  font-weight: 700;
+}
+.wordmark .main {
+  font-size: clamp(24px, 8.5vw, 150px);
+  letter-spacing: -0.08em;
+}
+.wordmark .sub {
+  font-size: clamp(14px, 5vw, 90px);
+  margin-left: 0.3em;
+  letter-spacing: -0.08em;
+}
+
+@media (max-width: 720px) {
+  .black-panel {
+    width: 38%;
+  }
+  .nav-label {
+    display: none;
+  }
+  .headline-bottom {
+    font-size: 9px;
+    max-width: 34%;
+  }
+  .wordmark .main {
+    font-size: 9vw;
+  }
+  .wordmark .sub {
+    font-size: 5.5vw;
+  }
 }
