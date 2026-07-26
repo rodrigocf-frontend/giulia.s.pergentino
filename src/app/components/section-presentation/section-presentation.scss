@@ -1,5 +1,21 @@
+.video {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-left: 30%;
+  overflow: hidden;
+}
+
 video {
   width: 100%;
   height: 100%;
-  object-fit: cover; // Garante que mídia preencha sem distorcer
+  object-fit: contain;
+  scale: 2;
+  position: relative;
+  top: 32rem;
+}
+
+.black-panel {
+  width: 30%;
+  height: 100%;
 }

@@ -17,6 +17,8 @@ export class App implements OnInit {
   ngOnInit(): void {
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
+    const videoEl = document.querySelector('video') as HTMLVideoElement;
+
     // Animação do título
     const split = SplitText.create('.title', { type: 'chars' });
     gsap.from(split.chars, {
@@ -32,37 +34,60 @@ export class App implements OnInit {
       scrollTrigger: {
         trigger: '.container',
         start: 'top top',
-        end: '+=200%',
+        end: '+=300%',
         scrub: 1,
         pin: true,
-        snap: {
-          // Define os pontos exatos de parada dos slides no scroll total (0%, 50%, 100%)
-          snapTo: (progress) => {
-            const snaps = [0, 0.5, 1]; // Posições exatas de cada slide (Slide 1, Slide 2, Slide 3)
-
-            // Descobre em qual trecho/transição o scroll atual está
-            if (progress < 0.5) {
-              // Transição do Slide 1 (0) para o Slide 2 (0.5)
-              const localProgress = progress / 0.5; // Normaliza a primeira metade para 0 a 1
-              return localProgress >= 0.3 ? 0.5 : 0;
-            } else {
-              // Transição do Slide 2 (0.5) para o Slide 3 (1.0)
-              const localProgress = (progress - 0.5) / 0.5; // Normaliza a segunda metade para 0 a 1
-              return localProgress >= 0.3 ? 1 : 0.5;
-            }
-          },
-          delay: 0.05, // Resposta mais rápida ao soltar o scroll
-          duration: { min: 0.2, max: 0.6 },
-          ease: 'power2.out',
+        onEnter: () => {
+          if (videoEl) {
+            videoEl.muted = true; // Garante silêncio absoluto para o navegador liberar o play
+            videoEl.play().catch((error) => console.log('Autoplay retido:', error));
+          }
         },
+        // snap: {
+        //   // Define os pontos exatos de parada dos slides no scroll total (0%, 50%, 100%)
+        //   snapTo: (progress) => {
+        //     const snaps = [0, 0.5, 1]; // Posições exatas de cada slide (Slide 1, Slide 2, Slide 3)
+
+        //     // Descobre em qual trecho/transição o scroll atual está
+        //     if (progress < 0.5) {
+        //       // Transição do Slide 1 (0) para o Slide 2 (0.5)
+        //       const localProgress = progress / 0.5; // Normaliza a primeira metade para 0 a 1
+        //       return localProgress >= 0.3 ? 0.5 : 0;
+        //     } else {
+        //       // Transição do Slide 2 (0.5) para o Slide 3 (1.0)
+        //       const localProgress = (progress - 0.5) / 0.5; // Normaliza a segunda metade para 0 a 1
+        //       return localProgress >= 0.3 ? 1 : 0.5;
+        //     }
+        //   },
+        //   delay: 0.05, // Resposta mais rápida ao soltar o scroll
+        //   duration: { min: 0.2, max: 0.6 },
+        //   ease: 'power2.out',
+        // },
       },
     });
 
     // Animações encadeadas dos slides
-    tl.fromTo('.video', { yPercent: 100 }, { yPercent: 0, ease: 'none' }).fromTo(
-      '.deitada',
-      { yPercent: 100 },
-      { yPercent: 0, ease: 'none' },
-    );
+    (tl.fromTo(
+      '.hero-photo',
+      {
+        scale: 1.13,
+        yPercent: 0,
+        opacity: 1,
+      },
+      {
+        scale: 1,
+        opacity: 0.3,
+        ease: 'none',
+      },
+    ),
+      tl
+        .fromTo(
+          '.video',
+          {
+            yPercent: 100,
+          },
+          { yPercent: 0, ease: 'power1.in', opacity: 1 },
+        )
+        .fromTo('.deitada', { yPercent: 100 }, { yPercent: 0, ease: 'none' }));
   }
 }
